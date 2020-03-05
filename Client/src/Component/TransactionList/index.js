@@ -1,9 +1,13 @@
-import React, { Fragment, useContext } from 'react'
+import React, { Fragment, useContext, useEffect } from 'react'
 import { GlobalContext } from '@Component/GlobalContext'
 import { Transaction } from '@Component/Transaction'
 
 export const TransactionList = () => {
-  const { transactions } = useContext(GlobalContext)
+  const { transactions, getTransactions } = useContext(GlobalContext)
+
+  useEffect(() => {
+    getTransactions()
+  }, [])
 
   return (
     <Fragment>
