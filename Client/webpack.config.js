@@ -1,8 +1,6 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
-require('@babel/polyfill')
-
 module.exports = {
   entry: ['@babel/polyfill', './src/index.js'],
   output: {
@@ -23,6 +21,13 @@ module.exports = {
         use: ['style-loader', 'css-loader', 'sass-loader']
       }
     ]
+  },
+  devServer: {
+    port: 3000,
+    open: true,
+    proxy: {
+      "/api": "http://localhost:5000"
+    }
   },
   plugins: [
     new HtmlWebpackPlugin({

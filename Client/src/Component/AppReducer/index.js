@@ -4,7 +4,7 @@ export function AppReducer (state, action) {
       return {
         ...state,
         loading: false,
-        transaction: action.payload
+        transactions: action.payload
       }
     case 'DELETE_TRANSACTION':
       return {
