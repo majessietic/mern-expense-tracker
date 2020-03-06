@@ -1,6 +1,5 @@
 import React, { createContext, useReducer } from 'react'
 import { AppReducer } from '@Component/AppReducer'
-import { v4 as uuidv4 } from 'uuid'
 import axios from 'axios'
 
 const initialState = {
@@ -24,35 +23,59 @@ export const GlobalContextProvider = (props) => {
       })
     } catch (err) {
       dispatch({
-        type: 'ERROR_TRANSACTIONS',
+        type: 'ERROR_TRANSACTION',
         payload: err.response.data.error
       })
     }
   }
 
-  const deleteTransaction = id => {
-    dispatch({
-      type: 'DELETE_TRANSACTION',
-      payload: id
-    })
+  const deleteTransaction = async id => {
+    try {
+      await axios.delete(`/api/v1/transactions/${id}`)
+
+      dispatch({
+        type: 'DELETE_TRANSACTION',
+        payload: id
+      })
+    } catch (err) {
+      dispatch({
+        type: 'ERROR_TRANSACTION',
+        payload: err.response.data.error
+      })
+    }
   }
 
-  const addTransaction = transaction => {
-    dispatch({
-      type: 'ADD_TRANSACTION',
-      payload: transaction
-    })
+  const addTransaction = async transaction => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+
+    try {
+      const res = await axios.post('/api/v1/transactions', transaction, config)
+
+      dispatch({
+        type: 'ADD_TRANSACTION',
+        payload: transaction
+      })
+    } catch (err) {
+      dispatch({
+        type: 'ERROR_TRANSACTION',
+        payload: err.response.data.error
+      })
+    }
   }
 
   return (
     <GlobalContext.Provider
       value={{ 
-        transactions: state.transactions, 
-        deleteTransaction,
-        addTransaction,
-        getTransactions,
+        transactions: state.transactions,
         error: state.error,
-        loading: state.loading
+        loading: state.loading,
+        getTransactions,
+        deleteTransaction,
+        addTransaction
       }}
     >
       {props.children}

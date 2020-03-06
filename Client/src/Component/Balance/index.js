@@ -1,5 +1,6 @@
 import React, { Fragment, useContext } from 'react'
 import { GlobalContext } from '@Component/GlobalContext'
+import { comma } from '@Component/Utils'
 
 export const Balance = () => {
   const { transactions } = useContext(GlobalContext)
@@ -10,7 +11,7 @@ export const Balance = () => {
   return (
     <Fragment>
       <h4>Your Balance</h4>
-      <h1>${total} </h1>
+      <h1>${comma(total)} </h1>
     </Fragment>
   )
 }
