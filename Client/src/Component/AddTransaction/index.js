@@ -1,6 +1,5 @@
 import React, { Fragment, useState, useContext } from 'react'
 import { GlobalContext } from '@Component/GlobalContext'
-import { v4 as uuidv4 } from 'uuid'
 
 export const AddTransaction = () => {
   const [text, setText] = useState('')
@@ -12,7 +11,6 @@ export const AddTransaction = () => {
     e.preventDefault()
 
     const newTransaction = {
-      id: uuidv4(),
       text,
       amount: +amount
     }
