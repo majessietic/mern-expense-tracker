@@ -57,7 +57,7 @@ export const GlobalContextProvider = (props) => {
 
       dispatch({
         type: 'ADD_TRANSACTION',
-        payload: transaction
+        payload: res.data.data
       })
     } catch (err) {
       dispatch({
